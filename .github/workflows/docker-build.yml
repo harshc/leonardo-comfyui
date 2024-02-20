@@ -9,8 +9,8 @@ env:
   UBUNTU_VERSION: 22.04
   BUILDX_NO_DEFAULT_ATTESTATIONS: 1
   # Conservative defaults for cloud providers
-  LATEST_CUDA: "leonardo-base:cuda-12.1.0-base-22.04"
-  LATEST_CPU: "leonardo-base:cuda-12.1.0-base-22.04"
+  LATEST_CUDA: "pytorch-2.2.0-py3.12-cuda-12.1.0-runtime-22.04"
+  LATEST_CPU: "pytorch-2.2.0-py3.12-cpu-22.04"
 
 jobs:    
   nvidia-base:
@@ -72,7 +72,7 @@ jobs:
         with:
           context: build
           build-args: |
-            IMAGE_BASE=ghcr.io/harshc/${{ matrix.base }}:${{ matrix.pytorch }}-py${{ matrix.python }}-cuda-${{ matrix.cuda }}-${{ matrix.level }}-${{ env.UBUNTU_VERSION }}
+            IMAGE_BASE=ghcr.io/harshc/leonardo-base:cuda-12.1.0-base-22.04
             PYTORCH_VERSION=${{ matrix.pytorch }}
           push: true
           provenance: false
