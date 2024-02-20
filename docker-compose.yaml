@@ -8,9 +8,9 @@ services:
         IMAGE_BASE: ${IMAGE_BASE:-ghcr.io/harshc/leonardo-base:cuda-12.1.0-base-22.04}
         PYTORCH_VERSION: ${PYTORCH_VERSION:-2.1.1}
       tags:
-        - "ghcr.io/ai-dock/comfyui:${IMAGE_TAG:-pytorch-2.2.0-py3.12-cuda-12.1.0-runtime-22.04}"
+        - "ghcr.io/harshc/comfyui:${IMAGE_TAG:-pytorch-2.2.0-py3.12-cuda-12.1.0-runtime-22.04}"
         
-    image: ghcr.io/ai-dock/comfyui:${IMAGE_TAG:-pytorch-2.2.0-py3.12-cuda-12.1.0-runtime-22.04}
+    image: ghcr.io/harshc/comfyui:${IMAGE_TAG:-pytorch-2.2.0-py3.12-cuda-12.1.0-runtime-22.04}
     
     ## For Nvidia GPU's - You probably want to uncomment this
     # deploy:
@@ -49,8 +49,6 @@ services:
         - DIRECT_ADDRESS_GET_WAN=${DIRECT_ADDRESS_GET_WAN:-false}
         - WORKSPACE=${WORKSPACE:-/workspace}
         - WORKSPACE_SYNC=${WORKSPACE_SYNC:-false}
-        - CF_TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
-        - CF_QUICK_TUNNELS=${CF_QUICK_TUNNELS:-true}
         - WEB_ENABLE_AUTH=${WEB_ENABLE_AUTH:-true}
         - WEB_USER=${WEB_USER:-user}
         - WEB_PASSWORD=${WEB_PASSWORD:-password}

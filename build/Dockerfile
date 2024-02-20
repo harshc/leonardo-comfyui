@@ -23,8 +23,8 @@ ENV MAMBA_DEFAULT_ENV=comfyui
 ENV MAMBA_DEFAULT_RUN="micromamba run -n $MAMBA_DEFAULT_ENV"
 
 # Copy overrides and models into later layers for fast rebuilds
-COPY --chown=0:1111 ./COPY_ROOT_EXTRA/ /
-RUN set -eo pipefail && /opt/leonardo/bin/build/layer1/init.sh | tee -a /var/log/build.log
+# COPY --chown=0:1111 ./COPY_ROOT_EXTRA/ /
+# RUN set -eo pipefail && /opt/leonardo/bin/build/layer1/init.sh | tee -a /var/log/build.log
 
 # Keep init.sh as-is and place additional logic in /opt/leonardo/bin/preflight.sh
 CMD ["init.sh"]
