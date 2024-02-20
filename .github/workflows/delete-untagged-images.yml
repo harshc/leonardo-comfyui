@@ -21,7 +21,7 @@ jobs:
       -
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const response = await github.request("GET /${{ env.OWNER }}/packages/container/${{ github.event.repository.name  }}/versions",
               { per_page: ${{ env.PER_PAGE }}

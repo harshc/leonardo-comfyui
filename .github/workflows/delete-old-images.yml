@@ -36,7 +36,7 @@ jobs:
       -
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const delete_age = (function() {
                 switch ("${{ github.event.inputs.age }}") {

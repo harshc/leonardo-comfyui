@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source https://github.com/harshc/leonardo-comfyui
 LABEL org.opencontainers.image.description "ComfyUI Stable Diffusion backend and GUI"
 LABEL maintainer="Harsh Chiplonkar <harsh@chiplonkar.me>"
 
-ENV IMAGE_SLUG="comfyui"
+ENV IMAGE_SLUG="leonardo-comfyui"
 
 # Copy early so we can use scripts in the build - Changes to these files will invalidate the cache and cause a rebuild.
 COPY --chown=0:1111 ./COPY_ROOT/ /
@@ -28,3 +28,4 @@ ENV MAMBA_DEFAULT_RUN="micromamba run -n $MAMBA_DEFAULT_ENV"
 
 # Keep init.sh as-is and place additional logic in /opt/leonardo/bin/preflight.sh
 CMD ["init.sh"]
+ENTRYPOINT ["/opt/leonardo/bin/provisioning.sh"]
