@@ -64,9 +64,9 @@ Tags follow these patterns:
 ##### _CUDA_
 - `:pytorch-[pytorch-version]-py[python-version]-cuda-[x.x.x]-base-[ubuntu-version]`
 
-- `:latest-cuda` &rarr; `:pytorch-2.2.0-py3.10-cuda-11.8.0-base-22.04`
+- `:latest-cuda` &rarr; `:pytorch-2.2.0-py3.10-cuda-12.3.1-base-22.04`
 
-- `:latest-cuda-jupyter` &rarr; `:jupyter-pytorch-2.2.0-py3.10-cuda-11.8.0-base-22.04`
+- `:latest-cuda-jupyter` &rarr; `:jupyter-pytorch-2.2.0-py3.10-cuda-12.3.1-base-22.04`
 
 ##### _ROCm_
 - `:pytorch-[pytorch-version]-py[python-version]-rocm-[x.x.x]-runtime-[ubuntu-version]`
@@ -99,11 +99,11 @@ You can self-build from source by editing `docker-compose.yaml` or `.env` and ru
 
 It is a good idea to leave the main source tree alone and copy any extra files you would like in the container into `build/COPY_ROOT_EXTRA/...`. The structure within this directory will be overlayed on `/` near the end of the build process.
 
-After copying has been completed, the script `build/COPY_ROOT_EXTRA/opt/ai-dock/bin/build/layer1/init.sh` will be executed. A template for this file capable of downloading models and nodes is provided for convenience.
+After copying has been completed, the script `build/COPY_ROOT_EXTRA/opt/leonardo/bin/build/layer1/init.sh` will be executed. A template for this file capable of downloading models and nodes is provided for convenience.
 
 Any directories and files that you add into `opt/storage` will be made available in the running container at `$WORKSPACE/storage` through symbolic links.  
 
-This directory is monitored by `inotifywait`. Any items appearing here will be automatically symlinked to the application directories as defined in `/opt/ai-dock/storage_monitor/etc/mappings.sh`.
+This directory is monitored by `inotifywait`. Any items appearing here will be automatically symlinked to the application directories as defined in `/opt/leonardo/storage_monitor/etc/mappings.sh`.
 
 ### Recommended workflow
 
@@ -111,7 +111,7 @@ This directory is monitored by `inotifywait`. Any items appearing here will be a
 - Create and switch to a new branch
 - Create `.env` to override the `IMAGE_TAG`
 - Copy non-public models to `build/COPY_ROOT_EXTRA/opt/storage/stable_diffusion/ckpt/`
-- Edit `build/COPY_ROOT_EXTRA/opt/ai-dock/bin/build/layer1/init.sh` to download public models and nodes
+- Edit `build/COPY_ROOT_EXTRA/opt/leonardo/bin/build/layer1/init.sh` to download public models and nodes
 - Run `docker compose build`
 - Run `docker compose push`
 
@@ -239,7 +239,7 @@ You can use the environment variable `PROVISIONING_SCRIPT` to specify the URL of
 
 The URL must point to a plain text file - GitHub Gists/Pastebin (raw) are suitable options.
 
-If you are running locally you may instead opt to mount a script at `/opt/ai-dock/bin/provisioning.sh`.
+If you are running locally you may instead opt to mount a script at `/opt/leonardo/bin/provisioning.sh`.
 
 >[!NOTE]  
 >If configured, `sshd`, `caddy`, `cloudflared`, `serviceportal`, `storagemonitor` & `logtail` will be launched before provisioning; Any other processes will launch after.
@@ -430,7 +430,7 @@ If you are logged into the container you can follow the logs by running `logtail
 
 ### Storage Monitor
 
-This service detects changes to files in `$WORKSPACE/storage` and creates symbolic links to the application directories defined in `/opt/ai-dock/storage_monitor/etc/mappings.sh`
+This service detects changes to files in `$WORKSPACE/storage` and creates symbolic links to the application directories defined in `/opt/leonardo/storage_monitor/etc/mappings.sh`
 
 ## Open Ports
 

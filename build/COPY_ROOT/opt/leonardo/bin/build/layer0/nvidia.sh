@@ -11,7 +11,7 @@ build_nvidia_install_comfyui() {
     
     micromamba install -n comfyui -c xformers xformers
 
-    /opt/ai-dock/bin/update-comfyui.sh
+    /opt/leonardo/bin/update-comfyui.sh
 }
 
 build_nvidia_main "$@"

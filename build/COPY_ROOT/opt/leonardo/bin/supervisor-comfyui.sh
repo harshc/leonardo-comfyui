@@ -15,7 +15,7 @@ function cleanup() {
 }
 
 function start() {
-    source /opt/ai-dock/etc/environment.sh
+    source /opt/leonardo/etc/environment.sh
     if [[ ! -v COMFYUI_PORT || -z $COMFYUI_PORT ]]; then
         COMFYUI_PORT=${COMFYUI_PORT_HOST:-8188}
     fi
@@ -43,29 +43,10 @@ function start() {
     
     # Delay launch until micromamba is ready
     if [[ -f /run/workspace_sync || -f /run/container_config ]]; then
-        if [[ ${SERVERLESS,,} != "true" ]]; then
-            printf "Waiting for workspace sync...\n"
-            fuser -k -SIGKILL ${LISTEN_PORT}/tcp > /dev/null 2>&1 &
-            wait -n
-            /usr/bin/python3 /opt/ai-dock/fastapi/logviewer/main.py \
-                -p $LISTEN_PORT \
-                -r 5 \
-                -s "${SERVICE_NAME}" \
-                -t "Preparing ${SERVICE_NAME}" &
-            fastapi_pid=$!
-            
-            while [[ -f /run/workspace_sync || -f /run/container_config ]]; do
-                sleep 1
-            done
-            
-            kill $fastapi_pid &
-            wait -n
-        else
-            printf "Waiting for workspace symlinks and pre-flight checks...\n"
-            while [[ -f /run/workspace_sync || -f /run/container_config ]]; do
-                sleep 1
-            done
-        fi
+        printf "Waiting for workspace symlinks and pre-flight checks...\n"
+        while [[ -f /run/workspace_sync || -f /run/container_config ]]; do
+            sleep 1
+        done
     fi
     
     printf "%s started: %s\n" "${SERVICE_NAME}" "$(date +"%x %T.%3N")" >> /var/log/timing_data
